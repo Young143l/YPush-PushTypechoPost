@@ -72,7 +72,7 @@ func GetCategory (config Config) []string{
 	args := []interface{}{1,config.UserName, config.Password} //获取内容
 	var receive []map[string]interface{}
 	err := client.Call("wp.getCategories", args,&receive)
-	Checkerr(err,"receiving")
+	Checkerr(err,"receiving categories")
 
 	categories := make([]string, 0) //处理内容
 	for _, item := range receive {
@@ -90,7 +90,7 @@ func GetTags(config Config){
 	args := []interface{}{1,config.UserName, config.Password} //获取内容
 	var receive []map[string]interface{}
 	err := client.Call("wp.getTags", args,&receive)
-	Checkerr(err,"receiving")
+	Checkerr(err,"receiving tags")
 
 	tags := make([]string, 0) //处理内容
 	for _, item := range receive {
@@ -113,14 +113,14 @@ func SendPost(config Config,postData map[string]interface{}) int {
 	args := []interface{}{1,config.UserName, config.Password,postData,true} //发送文章
 	var postID int
 	err := client.Call("metaWeblog.newPost",args,&postID)
-	Checkerr(err,"Sending")
+	Checkerr(err,"Sending post")
 
 	return postID//返回postID
 }
 
 func main(){
 	fmt.Println("Hello,welcome to use YPush!") 
-	line := strings.Repeat("-", 50)
+	line := strings.Repeat("-", 40)
 
 	var config Config
 	GetConfig(&config) //读取配置文件
